@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity implements ContactAdapter.On
 
         recyclerView = findViewById(R.id.contactRecycle);
 
+        Intent intent = getIntent();
+        if (intent.getStringExtra("firstName") != null) {
+            ListUpdate(intent);
+        }
+
         try {
             layoutManager = new LinearLayoutManager(getApplicationContext());
             recyclerView.setLayoutManager(layoutManager);
@@ -67,15 +72,31 @@ public class MainActivity extends AppCompatActivity implements ContactAdapter.On
 
     @Override
     public void OnItemClick(int position) {
-        UserModel user = new UserModel();
-
-        user.setId(userModelArrayList.get(position).getId());
-        user.setFirstName(userModelArrayList.get(position).getFirstName());
-        user.setLastName(userModelArrayList.get(position).getLastName());
-        user.setEmail(userModelArrayList.get(position).getEmail());
-        user.setPhone(userModelArrayList.get(position).getPhone());
 
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.putExtra("firstName",userModelArrayList.get(position).getFirstName());
+        intent.putExtra("lastName",userModelArrayList.get(position).getLastName());
+        intent.putExtra("email",userModelArrayList.get(position).getEmail());
+        intent.putExtra("phone",userModelArrayList.get(position).getPhone());
+        intent.putExtra("position",position);
+
         startActivity(intent);
+    }
+
+    public void ListUpdate(Intent intentSec) {
+        int pos = Integer.parseInt(intentSec.getStringExtra("position"));
+        String firstname = intentSec.getStringExtra("firstName");
+        String lastname = intentSec.getStringExtra("lastName");
+        String email = intentSec.getStringExtra("email");
+        String phone = intentSec.getStringExtra("phone");
+
+        UserModel user = new UserModel();
+
+        user.setId(firstname);
+        user.setFirstName(lastname);
+        user.setLastName(email);
+        user.setEmail(phone);
+
+        userModelArrayList.set(pos,user);
     }
 }
