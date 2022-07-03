@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements ContactAdapter.On
                     user.setId(userData.getString("id"));
                     user.setFirstName(userData.getString("firstName"));
                     user.setLastName(userData.getString("lastName"));
-                    user.setEmail(userData.getString("email"));
-                    user.setPhone(userData.getString("phone"));
+                    user.setEmail(userData.optString("email"));
+                    user.setPhone(userData.optString("phone"));
 
                     userModelArrayList.add(user);
                 }

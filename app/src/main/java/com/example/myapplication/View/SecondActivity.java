@@ -32,7 +32,13 @@ public class SecondActivity extends AppCompatActivity {
         String lastname = intent.getStringExtra("lastName");
         String email = intent.getStringExtra("email");
         String phone = intent.getStringExtra("phone");
-        int position = Integer.parseInt(intent.getStringExtra("position"));
+        final int position;
+        if (intent.getStringExtra("position") != null){
+            position = Integer.parseInt(intent.getStringExtra("position"));
+        }
+        else
+            position = 0;
+
 
         firstName.setText(firstname);
         lastName.setText(lastname);
